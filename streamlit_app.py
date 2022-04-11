@@ -57,8 +57,7 @@ def object_detection(search_key, frame, model):
         return sys.exit()
     else:
         pass
-        # st.text('Not Found')
-        # return sys.exit()
+        
 
 
 # Main App
@@ -83,11 +82,11 @@ def main():
                 video_file = open(path, "rb").read()
                 st.video(video_file)
             cap = cv2.VideoCapture(path)
-            frame_width = int(cap.get(3))
-            frame_height = int(cap.get(4))
+            #frame_width = int(cap.get(3))
+            #frame_height = int(cap.get(4))
 
-            fourcc = cv2.VideoWriter_fourcc(*'XVID')
-            output = cv2.VideoWriter('output.mp4', fourcc, 20.0, (frame_width, frame_height))
+            #fourcc = cv2.VideoWriter_fourcc(*'XVID')
+            #output = cv2.VideoWriter('output.mp4', fourcc, 20.0, (frame_width, frame_height))
 
             if st.button("Detect Objects"):
 
@@ -106,8 +105,8 @@ def main():
                     # st.image(frame, caption='Video Stream', use_column_width=True)
 
                 cap.release()
-                output.release()
-                cv2.destroyAllWindows()
+                #output.release()
+                
 
             key = st.text_input('Search key')
             key = key.lower()
@@ -125,14 +124,13 @@ def main():
 
                         # Perform object detection
                         object_detection(key, frame, model)
-                        # frame = predict(frame, model)
+                        
 
-                        # Display the resulting frame
-                        # st.image(frame, caption='Video Stream', use_column_width=True)
+                        
 
                     cap.release()
-                    output.release()
-                    cv2.destroyAllWindows()
+                   
+                    
 
                     #Return statement if object is not found
                     st.text("Object not found")
