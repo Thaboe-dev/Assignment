@@ -25,7 +25,8 @@ def predict(frame, model):
     pred_text = tf.keras.applications.inception_v3.decode_predictions(prediction, top=1)
     for (i, (imagenetID, label, prob)) in enumerate(pred_text[0]):
         label = ("{}: {:.2f}%".format(label, prob * 100))
-
+    
+    #Return the predicted label and its corresponding probability
     st.markdown(label)
 
 
@@ -44,12 +45,14 @@ def predict2(frame, model):
     pred_text = tf.keras.applications.inception_v3.decode_predictions(prediction, top=1)
     for (i, (imagenetID, label, prob)) in enumerate(pred_text[0]):
         pred_class = label
-
+    
+    #Return the predicted class for Search comparison
     return pred_class
 
 
 def object_detection(search_key, frame, model):
     label = predict2(frame, model)
+    #Convert the string to lower case for effective comparison
     label = label.lower()
     if label.find(search_key) > -1:
         st.image(frame, caption=label)
@@ -82,11 +85,7 @@ def main():
                 video_file = open(path, "rb").read()
                 st.video(video_file)
             cap = cv2.VideoCapture(path)
-            #frame_width = int(cap.get(3))
-            #frame_height = int(cap.get(4))
-
-            #fourcc = cv2.VideoWriter_fourcc(*'XVID')
-            #output = cv2.VideoWriter('output.mp4', fourcc, 20.0, (frame_width, frame_height))
+            
 
             if st.button("Detect Objects"):
 
@@ -98,14 +97,12 @@ def main():
                         break
 
                     # Perform object detection
-                    # frame = object_detection(frame, model)
                     predict(frame, model)
 
-                    # Display the resulting frame
-                    # st.image(frame, caption='Video Stream', use_column_width=True)
+                   
 
                 cap.release()
-                #output.release()
+                
                 
 
             key = st.text_input('Search key')
