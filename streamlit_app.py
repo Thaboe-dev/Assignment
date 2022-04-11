@@ -134,6 +134,9 @@ def main():
                     output.release()
                     cv2.destroyAllWindows()
 
+                    #Return statement if object is not found
+                    st.text("Object not found")
+
     elif choice == "About":
         st.subheader("About")
         st.text("Built with Streamlit and Inceptionv3")
